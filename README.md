@@ -56,3 +56,5 @@ Este é um projeto de fã e não possui finalidade comercial.
 ---
 
 ### 🕯️ HEXATOMBE // ARQUIVO PARANORMAL
+
+# Feito Por Maria / #AVigilia
