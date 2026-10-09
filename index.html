@@ -1,183 +1,213 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ordem Paranormal: Hexatombe</title>
+<style>
+  :root{
+    --bg:#07070a; --panel:#101015; --red:#c1121f; --red2:#ff2e3d;
+    --text:#d9d9de; --muted:#8a8a96; --line:#23232c;
+    --sangue:#c1121f; --morte:#9a9aa6; --conhecimento:#e0a526; --energia:#8a3ffc; --medo:#f2f2f2;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg); color:var(--text);
+    font-family:"Segoe UI",system-ui,sans-serif; line-height:1.65;
+    background-image:
+      radial-gradient(ellipse at 50% -10%, rgba(193,18,31,.18), transparent 60%),
+      repeating-linear-gradient(0deg, rgba(255,255,255,.015) 0 1px, transparent 1px 3px);
+  }
+  a{color:inherit;text-decoration:none}
 
-    <title>HEXATOMBE | Arquivo Paranormal</title>
+  /* NAV */
+  nav{
+    position:sticky;top:0;z-index:20;display:flex;justify-content:center;gap:28px;flex-wrap:wrap;
+    padding:14px 16px;background:rgba(7,7,10,.88);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  nav a{font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);transition:.25s}
+  nav a:hover{color:var(--red2);text-shadow:0 0 12px var(--red)}
 
-    <link rel="stylesheet" href="style.css">
+  /* HERO */
+  header.hero{
+    min-height:92vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+    text-align:center;padding:60px 20px;position:relative;overflow:hidden;
+  }
+  .circle{
+    position:absolute;width:min(90vw,720px);aspect-ratio:1;opacity:.28;
+    animation:spin 80s linear infinite;
+  }
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .eyebrow{letter-spacing:.5em;font-size:.8rem;color:var(--red2);text-transform:uppercase;position:relative}
+  h1.title{
+    font-family:Impact,"Arial Black",sans-serif;font-weight:900;
+    font-size:clamp(3rem,13vw,9rem);letter-spacing:.06em;line-height:1;margin:14px 0;
+    color:#fff;position:relative;text-transform:uppercase;
+    text-shadow:0 0 30px rgba(193,18,31,.6);
+  }
+  h1.title::before,h1.title::after{
+    content:attr(data-text);position:absolute;inset:0;overflow:hidden;
+  }
+  h1.title::before{color:var(--red2);left:3px;clip-path:inset(0 0 60% 0);animation:glitch 3.2s infinite steps(1)}
+  h1.title::after{color:#2ee6ff;left:-3px;clip-path:inset(60% 0 0 0);animation:glitch 2.7s infinite steps(1) reverse;opacity:.6}
+  @keyframes glitch{
+    0%,88%,100%{transform:translate(0)}
+    90%{transform:translate(-6px,2px)} 93%{transform:translate(5px,-2px)} 96%{transform:translate(-3px,1px)}
+  }
+  .sub{max-width:560px;color:var(--muted);position:relative;font-size:1.05rem}
+  .btn{
+    margin-top:34px;display:inline-block;position:relative;padding:14px 38px;
+    border:1px solid var(--red);color:#fff;letter-spacing:.25em;font-size:.8rem;text-transform:uppercase;
+    transition:.3s;
+  }
+  .btn:hover{background:var(--red);box-shadow:0 0 30px rgba(193,18,31,.7)}
+
+  /* SECTIONS */
+  section{max-width:1050px;margin:0 auto;padding:90px 22px}
+  h2{
+    font-family:Impact,"Arial Black",sans-serif;text-transform:uppercase;letter-spacing:.12em;
+    font-size:clamp(1.8rem,5vw,2.8rem);color:#fff;margin-bottom:8px;
+  }
+  h2 span{color:var(--red2)}
+  .bar{width:70px;height:3px;background:var(--red);margin:10px 0 28px;box-shadow:0 0 14px var(--red)}
+  p+p{margin-top:16px}
+
+  /* CARDS */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:18px;margin-top:34px}
+  .card{
+    background:var(--panel);border:1px solid var(--line);padding:26px 20px;text-align:center;
+    border-top:3px solid var(--c);transition:.3s;
+  }
+  .card:hover{transform:translateY(-6px);box-shadow:0 10px 30px rgba(0,0,0,.6),0 0 24px -6px var(--c)}
+  .card .dot{
+    width:46px;height:46px;border-radius:50%;margin:0 auto 14px;background:var(--c);
+    box-shadow:0 0 24px var(--c);
+  }
+  .card h3{letter-spacing:.2em;text-transform:uppercase;font-size:.95rem;color:#fff;margin-bottom:6px}
+  .card p{font-size:.88rem;color:var(--muted)}
+
+  /* HEXATOMBE BOX */
+  .feature{
+    display:grid;grid-template-columns:1fr 1fr;gap:34px;align-items:center;
+    background:linear-gradient(135deg,#14090b,#0b0b10);border:1px solid #3a1015;padding:38px;
+  }
+  .hexa{display:flex;justify-content:center}
+  .hexa svg{width:min(260px,70vw);filter:drop-shadow(0 0 20px rgba(193,18,31,.55))}
+  ul.list{list-style:none;margin-top:18px}
+  ul.list li{padding:9px 0 9px 24px;border-bottom:1px solid var(--line);position:relative;color:var(--muted)}
+  ul.list li::before{content:"✦";position:absolute;left:0;color:var(--red2)}
+  @media(max-width:760px){.feature{grid-template-columns:1fr;padding:24px}}
+
+  /* TIMELINE */
+  .timeline{border-left:2px solid var(--red);margin-top:30px;padding-left:26px}
+  .tl{position:relative;padding-bottom:30px}
+  .tl::before{
+    content:"";position:absolute;left:-34px;top:6px;width:14px;height:14px;background:var(--bg);
+    border:2px solid var(--red2);border-radius:50%;box-shadow:0 0 12px var(--red);
+  }
+  .tl h4{color:#fff;letter-spacing:.1em;text-transform:uppercase;font-size:.95rem}
+  .tl p{color:var(--muted);font-size:.92rem}
+
+  /* CELLBIT */
+  .cellbit{
+    text-align:center;background:var(--panel);border:1px solid var(--line);padding:50px 28px;
+    position:relative;overflow:hidden;
+  }
+  .cellbit::before{
+    content:"";position:absolute;inset:-40%;
+    background:conic-gradient(from 0deg,transparent,rgba(193,18,31,.16),transparent 40%);
+    animation:spin 18s linear infinite;
+  }
+  .cellbit>*{position:relative}
+  .badge{
+    display:inline-block;margin-top:14px;padding:6px 16px;border:1px solid var(--red);
+    font-size:.72rem;letter-spacing:.25em;text-transform:uppercase;color:var(--red2);
+  }
+
+  /* RITUAL */
+  .ritual{text-align:center}
+  #ritualBtn{
+    background:transparent;color:#fff;border:1px solid var(--red);padding:14px 34px;cursor:pointer;
+    letter-spacing:.25em;text-transform:uppercase;font-size:.8rem;transition:.3s;
+  }
+  #ritualBtn:hover{background:var(--red);box-shadow:0 0 30px rgba(193,18,31,.7)}
+  #oracle{margin-top:26px;min-height:60px;color:var(--red2);font-size:1.1rem;letter-spacing:.06em}
+
+  footer{
+    text-align:center;padding:40px 20px 60px;border-top:1px solid var(--line);
+    color:var(--muted);font-size:.8rem;
+  }
+  footer b{color:var(--red2)}
+
+  body.fear{animation:shake .5s}
+  @keyframes shake{
+    0%,100%{transform:translate(0)} 20%{transform:translate(-5px,3px)} 40%{transform:translate(5px,-3px)}
+    60%{transform:translate(-4px,-2px)} 80%{transform:translate(4px,2px)}
+  }
+</style>
 </head>
-
 <body>
 
-    <header>
-
-        <div class="logo">
-            HEXATOMBE
-        </div>
-
-        <nav>
-            <a href="#inicio">Início</a>
-            <a href="#personagens">Personagens</a>
-            <a href="#elementos">Elementos</a>
-            <a href="#arquivo">Arquivo</a>
-        </nav>
-
-    </header>
-
-    <main>
-
-        <section id="inicio" class="hero">
-
-            <div class="hero-text">
-
-                <span>ARQUIVO CLASSIFICADO</span>
-
-                <h1>HEXATOMBE</h1>
-
-                <p>
-                    O paranormal não é apenas uma ameaça.
-                    Ele está observando.
-                </p>
-
-                <button onclick="abrirArquivo()">
-                    ACESSAR ARQUIVO
-                </button>
-
-            </div>
-
-        </section>
-
-
-        <section id="personagens" class="secao">
-
-            <p class="categoria">REGISTROS</p>
-
-            <h2>PERSONAGENS</h2>
-
-            <div class="cards">
-
-                <article class="card">
-
-                    <div class="imagem">
-                        <img src="assets/personagem1.jpg"
-                             alt="Personagem">
-                    </div>
-
-                    <h3>PERSONAGEM 01</h3>
-
-                    <p>
-                        Registro desconhecido.
-                    </p>
-
-                </article>
-
-
-                <article class="card">
-
-                    <div class="imagem">
-                        <img src="assets/personagem2.jpg"
-                             alt="Personagem">
-                    </div>
-
-                    <h3>PERSONAGEM 02</h3>
-
-                    <p>
-                        Informações classificadas.
-                    </p>
-
-                </article>
-
-
-                <article class="card">
-
-                    <div class="imagem">
-                        <img src="assets/personagem3.jpg"
-                             alt="Personagem">
-                    </div>
-
-                    <h3>PERSONAGEM 03</h3>
-
-                    <p>
-                        Registro incompleto.
-                    </p>
-
-                </article>
-
-            </div>
-
-        </section>
-
-
-        <section id="elementos" class="secao elementos">
-
-            <p class="categoria">O OUTRO LADO</p>
-
-            <h2>ELEMENTOS</h2>
-
-            <div class="elementos-grid">
-
-                <div class="elemento">
-                    <span>◈</span>
-                    <h3>SANGUE</h3>
-                    <p>O sentimento levado ao extremo.</p>
-                </div>
-
-                <div class="elemento">
-                    <span>◈</span>
-                    <h3>MORTE</h3>
-                    <p>A passagem e o fim inevitável.</p>
-                </div>
-
-                <div class="elemento">
-                    <span>◈</span>
-                    <h3>CONHECIMENTO</h3>
-                    <p>O desejo de compreender o impossível.</p>
-                </div>
-
-                <div class="elemento">
-                    <span>◈</span>
-                    <h3>ENERGIA</h3>
-                    <p>O caos que rompe a realidade.</p>
-                </div>
-
-            </div>
-
-        </section>
-
-
-        <section id="arquivo" class="arquivo">
-
-            <p class="categoria">DOCUMENTO</p>
-
-            <h2>ARQUIVO PARANORMAL</h2>
-
-            <p>
-                Existem coisas que não deveriam ser encontradas.
-                Existem respostas que não deveriam ser procuradas.
-                E existem portas que nunca deveriam ser abertas.
-            </p>
-
-            <div id="mensagem"></div>
-
-        </section>
-
-    </main>
-
-
-    <footer>
-
-        <p>HEXATOMBE • ARQUIVO PARANORMAL</p>
-
-        <p>Projeto desenvolvido para estudos de HTML, CSS e JavaScript.</p>
-
-    </footer>
-
-
-    <script src="script.js"></script>
-
-</body>
-
-</html>
+<nav>
+  <a href="#inicio">Início</a>
+  <a href="#universo">Universo</a>
+  <a href="#elementos">Elementos</a>
+  <a href="#hexatombe">Hexatombe</a>
+  <a href="#cellbit">Cellbit</a>
+  <a href="#ritual">Ritual</a>
+</nav>
+
+<header class="hero" id="inicio">
+  <svg class="circle" viewBox="0 0 400 400" fill="none" stroke="#c1121f" stroke-width="1.2">
+    <circle cx="200" cy="200" r="190"/><circle cx="200" cy="200" r="170" stroke-dasharray="3 7"/>
+    <circle cx="200" cy="200" r="120"/>
+    <polygon points="200,60 321,130 321,270 200,340 79,270 79,130"/>
+    <polygon points="200,90 295,145 295,255 200,310 105,255 105,145" stroke-opacity=".6"/>
+    <line x1="200" y1="10" x2="200" y2="390"/><line x1="10" y1="200" x2="390" y2="200"/>
+    <line x1="66" y1="66" x2="334" y2="334" stroke-opacity=".5"/><line x1="334" y1="66" x2="66" y2="334" stroke-opacity=".5"/>
+  </svg>
+  <div class="eyebrow">Ordem Paranormal</div>
+  <h1 class="title" data-text="Hexatombe">Hexatombe</h1>
+  <p class="sub">Onde a realidade rachou, o Outro Lado atravessa. Prepare sua mente, agente: nem tudo o que você vê é real.</p>
+  <a class="btn" href="#universo">Entrar na Ordem</a>
+</header>
+
+<section id="universo">
+  <h2>O <span>Universo</span></h2>
+  <div class="bar"></div>
+  <p>Ordem Paranormal é um universo de investigação e terror criado por Cellbit (Rafael Lange), que nasceu como campanha de RPG de mesa narrada em vídeo e cresceu até virar um sistema de jogo próprio, com livros, quadrinhos e uma comunidade enorme de fãs.</p>
+  <p>Nele, agentes da <b>Ordem da Realidade</b> investigam ocorrências paranormais: rituais, cultistas e criaturas vindas do <b>Outro Lado</b>, uma dimensão onde as regras do nosso mundo deixam de valer. O objetivo é proteger a humanidade sem perder a própria sanidade.</p>
+</section>
+
+<section id="elementos">
+  <h2>Os <span>Elementos</span></h2>
+  <div class="bar"></div>
+  <p>O paranormal se manifesta por meio de forças que moldam entidades, rituais e pesadelos.</p>
+  <div class="grid">
+    <div class="card" style="--c:var(--sangue)"><div class="dot"></div><h3>Sangue</h3><p>Instinto, paixão e violência. A força bruta da carne.</p></div>
+    <div class="card" style="--c:var(--morte)"><div class="dot"></div><h3>Morte</h3><p>Fim, decadência e o que existe depois do último suspiro.</p></div>
+    <div class="card" style="--c:var(--conhecimento)"><div class="dot"></div><h3>Conhecimento</h3><p>Segredos, verdades proibidas e o preço de saber demais.</p></div>
+    <div class="card" style="--c:var(--energia)"><div class="dot"></div><h3>Energia</h3><p>Caos, mudança e poder instável que desafia a lógica.</p></div>
+    <div class="card" style="--c:var(--medo)"><div class="dot"></div><h3>Medo</h3><p>O elemento mais temido: o terror em sua forma mais pura.</p></div>
+  </div>
+</section>
+
+<section id="hexatombe">
+  <h2><span>Hexatombe</span></h2>
+  <div class="bar"></div>
+  <div class="feature">
+    <div>
+      <p>Hexatombe é uma das campanhas do universo de Ordem Paranormal, com a narração de Cellbit. Como em toda aventura da franquia, a mesa mistura investigação, tensão psicológica, decisões difíceis e muito terror.</p>
+      <ul class="list">
+        <li>Investigação de ocorrências paranormais</li>
+        <li>Rituais, entidades e o Outro Lado</li>
+        <li>Escolhas que mudam o destino dos agentes</li>
+        <li>Narrativa de terror com reviravoltas</li>
+      </ul>
+    </div>
+    <div class="hexa">
+      <svg viewBox="0 0 200 200" fill="none" stroke="#ff2e3d" stroke-width="2">
+        <polygon points="100,12 176,56 176,144 100,188 24,144 24,56"/>
+        <polygon points="100,40 152,70 152,130 100,160 48,130 48,70"
