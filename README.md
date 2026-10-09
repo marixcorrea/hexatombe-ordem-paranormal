@@ -1,6 +1,6 @@
 ### HEXATOMBE | Arquivo Paranormal ###
 
-> Um projeto web inspirado no universo de **Ordem Paranormal: Hexatombe**.
+> Um projeto web inspirado no universo de **Ordem Paranormal**, mas focado na era **HEXATOMBE**.
 
 
 
